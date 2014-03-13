@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+  <title>ToDos</title>
+    <meta charset="utf-8"/>
+
+    <!-- Include AngularJS JavaScript -->
+    <link rel="https://raw.github.com/tastejs/todomvc/gh-pages/architecture-examples/angularjs/bower_components/todomvc-common/base.css">
+    	<style>[ng-cloak] { display: none; }</style>
+</head>
+<body ng-app="todoApp">
+    <div ng-controller="ToDoController">
+        <header>
+            <form ng-submit="addTodo()">
+                <input id="new-todo" placeholder="Add task to list" ng-model="newTodo">
+            </form>
+        </header>
+        <div id="main" ng-show="todos.length" ng-cloak>
+            <input id="toogle-all" type="checkbox" ng-model="allChecked" ng-click="markAll(allChecked)">
+            <label for="toogle-all">Mark all as complete</label>
+            <ul id="todo-list">
+                <li ng-repeat="task in todos" ng-class="{completed: todo.completed, editing: todo == editedTodo}">
+                    <div class="view">
+                        <input class="toggle" type="checkbox" ng-model="task.done" ng-change="checked(task)">
+                        <label ng-dblclick="editTodo(task);hide = !hide" ng-hide="hide">{[{ task.task }]}</label>
+                        <form ng-submit="doneEditing(task);hide=!hide" ng-show="hide">
+                            <input class="edit" ng-trim="false" ng-model="task.task" ng-blur="doneEditing(task)">
+                        </form>
+                        <button class="destroy" ng-click="removeTodo(task)">delete</button>
+                    </div>
+
+
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+    <script type="text/javascript" src="{{ STATIC_URL }}angular/angular.js"> </script>
+    <script type="text/javascript" src="{{ STATIC_URL }}app/todo_app.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}app/services.js"></script>
+    <script src="http://code.angularjs.org/1.0.0rc10/angular-cookies-1.0.0rc10.js"></script>
+    <script src="http://code.angularjs.org/1.2.14/angular-route.js"></script>
+    <script src="http://code.angularjs.org/1.2.14/angular-resource.js"></script>
+</html>
